@@ -23,7 +23,7 @@ create or replace type body resultado_auditoria as
         dbms_output.put_line('-------------------------------------------------------');
         dbms_output.put_line('Info: ' || descricao);
         dbms_output.put_line('-------------------------------------------------------');
-        dbms_output.put_line('Pontos gerados: '|| ltrim(to_char(pontos, '999.99')));
+        dbms_output.put_line('Total de pontos gerados: '|| ltrim(to_char(pontos, '999.99')));
         dbms_output.put_line('Data: ' || data_auditoria);
         --
         if (erro is not null) then
