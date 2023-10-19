@@ -83,11 +83,15 @@ create or replace type body auditoria_de_tabela as
             --
             resultado.imprimir_erro;
             --
+            raise_application_error(-20001, 'Erro: Tabela: ' || nome_tabela || ' não contem registros.');
+            --
         when others then
             --
             resultado := resultado_auditoria(nome_tabela, null, sysdate, null, null,'Erro: ' || sqlerrm);
             --
             resultado.imprimir_erro;
+            --
+            raise_application_error(-20001, 'Erro: ' || sqlerrm);
             --
         --
     end;
