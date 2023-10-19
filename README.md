@@ -4,6 +4,7 @@
 1. [Contexto](#contexto)
 1. [Processamento](#processamento)
 1. [Execução](#execucao)
+1. [Testes](#teste)
 *******
 
 <div id='contexto' />
@@ -68,6 +69,7 @@ end;
 /
 ```
 ### Resultado esperado
+
     Nome da tabela auditada: TESTE
     Numero de registros na tabela: 30
     -------------------------------------------------------
@@ -81,3 +83,8 @@ end;
 
 
     Procedimento PL/SQL concluído com sucesso.
+
+<div id='teste' />
+
+## Testes
+Basta executar o _script_teste.sql_ logo após compilar os objetos que a partir do arquivo _compilar.sql_
