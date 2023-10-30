@@ -6,6 +6,7 @@ create table tb_resultado (
     data_auditoria date,
     descricao varchar2(2000),
     pontuacao number,
+    peso_utilizado number,
     erro varchar2(500),
     constraint pk_resultado primary key(id)
 );

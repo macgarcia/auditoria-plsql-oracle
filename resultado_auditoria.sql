@@ -5,6 +5,7 @@ create or replace type resultado_auditoria as object (
     data_auditoria date,
     descricao varchar2(500),
     pontos number,
+    peso_utilizado number,
     erro varchar2(500),
 
     member procedure imprimir_resultado,
@@ -52,8 +53,10 @@ create or replace type body resultado_auditoria as
         --
     begin
         --
-        insert into tb_resultado(id, nome_tabela, qtde_colunas, qtde_total_registros, data_auditoria, descricao, pontuacao, erro)
-        values(tb_resultado_seq.nextval, nome_tabela, qtde_colunas, numero_de_registros, sysdate, descricao, pontos, erro);
+        delete from tb_resultado a where a.nome_tabela = nome_tabela;
+        --
+        insert into tb_resultado(id, nome_tabela, qtde_colunas, qtde_total_registros, data_auditoria, descricao, pontuacao, peso_utilizado, erro)
+        values(tb_resultado_seq.nextval, nome_tabela, qtde_colunas, numero_de_registros, sysdate, descricao, pontos, peso_utilizado, erro);
         --
         commit;
         --

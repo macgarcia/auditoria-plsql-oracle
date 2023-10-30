@@ -75,14 +75,14 @@ create or replace type body auditoria_de_tabela as
             --
         end loop;
         --
-        resultado := resultado_auditoria(nome_tabela, vn_qdte_registros, vn_qtde_colunas, sysdate, vv_descricao, vn_pontuacao, null);
+        resultado := resultado_auditoria(nome_tabela, vn_qdte_registros, vn_qtde_colunas, sysdate, vv_descricao, vn_pontuacao, peso, 'Não houve erros');
         resultado.gravar_resultado;
         resultado.imprimir_resultado;
         --
     exception
         when exception_no_data_found then
             --
-            resultado := resultado_auditoria(nome_tabela, null, vn_qtde_colunas, sysdate, null, null,
+            resultado := resultado_auditoria(nome_tabela, null, vn_qtde_colunas, sysdate, null, null, peso,
                 'Erro: Tabela: ' || nome_tabela || ' não contem registros.');
             --
             resultado.imprimir_erro;
@@ -91,7 +91,7 @@ create or replace type body auditoria_de_tabela as
             --
         when others then
             --
-            resultado := resultado_auditoria(nome_tabela, null, vn_qtde_colunas, sysdate, null, null,'Erro: ' || sqlerrm);
+            resultado := resultado_auditoria(nome_tabela, null, vn_qtde_colunas, sysdate, null, null, peso, 'Erro: ' || sqlerrm);
             --
             resultado.imprimir_erro;
             --
