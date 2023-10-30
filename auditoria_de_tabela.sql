@@ -16,15 +16,16 @@ create or replace type body auditoria_de_tabela as
         --
         vn_registro_inicial number := 1;
         --
-        vv_query_sql varchar2(1000);
-        vv_query_count varchar(50);
-        vv_descricao varchar2(2000);
+        vv_query_sql    varchar2(1000);
+        vv_query_count  varchar(50);
+        vv_descricao    varchar2(2000);
         --
-        vn_pontuacao number := 0;
-        vn_pontuacao_temp number;
-        vn_numero_de_colunas number;
-        vn_qdte_registros number;
-        vn_indice number := 1;
+        vn_pontuacao            number := 0;
+        vn_pontuacao_temp       number;
+        vn_numero_de_colunas    number;
+        vn_qdte_registros       number;
+        vn_indice               number := 1;
+        vn_qtde_colunas         number := 0;
         --
         exception_no_data_found exception;
         --
@@ -46,6 +47,8 @@ create or replace type body auditoria_de_tabela as
             for colunas in (select column_name from user_tab_columns where table_name = nome_tabela) loop
                 --
                 vv_query_sql := vv_query_sql || ' case when ' || colunas.column_name || ' is null then 1 else 0 end * ' || peso || ' + ';
+                --
+                vn_qtde_colunas := vn_qtde_colunas + 1;
                 --
             end loop;
             --
@@ -72,13 +75,14 @@ create or replace type body auditoria_de_tabela as
             --
         end loop;
         --
-        resultado := resultado_auditoria(nome_tabela, vn_qdte_registros, sysdate, vv_descricao, vn_pontuacao, null);
+        resultado := resultado_auditoria(nome_tabela, vn_qdte_registros, vn_qtde_colunas, sysdate, vv_descricao, vn_pontuacao, null);
+        resultado.gravar_resultado;
         resultado.imprimir_resultado;
         --
     exception
         when exception_no_data_found then
             --
-            resultado := resultado_auditoria(nome_tabela, null, sysdate, null, null,
+            resultado := resultado_auditoria(nome_tabela, null, vn_qtde_colunas, sysdate, null, null,
                 'Erro: Tabela: ' || nome_tabela || ' não contem registros.');
             --
             resultado.imprimir_erro;
@@ -87,7 +91,7 @@ create or replace type body auditoria_de_tabela as
             --
         when others then
             --
-            resultado := resultado_auditoria(nome_tabela, null, sysdate, null, null,'Erro: ' || sqlerrm);
+            resultado := resultado_auditoria(nome_tabela, null, vn_qtde_colunas, sysdate, null, null,'Erro: ' || sqlerrm);
             --
             resultado.imprimir_erro;
             --
