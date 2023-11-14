@@ -1,5 +1,7 @@
 -- @@tb_resultado.sql
-@@resultado_auditoria.sql;
-@@auditoria_de_tabela.sql;
-@@auditoria_teste.sql
+@@objetos\auditoria_de_tabela.sql;
+@@objetos\auditoria_de_tabela.sql;
+@@objetos\auditoria_teste.sql;
+
+@@package\pk_auditoria.sql;
 /

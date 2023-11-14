@@ -97,7 +97,6 @@ create or replace type body auditoria_de_tabela as
             --
             raise_application_error(-20001, 'Erro: ' || sqlerrm);
             --
-        --
     end;
     --
 end;
