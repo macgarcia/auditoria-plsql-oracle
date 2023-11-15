@@ -1,5 +1,5 @@
 create or replace type resultado_auditoria as object (
-    nome_tabela varchar2(100),
+    r_nome_tabela varchar2(100),
     numero_de_registros number,
     qtde_colunas number,
     data_auditoria date,
@@ -21,7 +21,7 @@ create or replace type body resultado_auditoria as
         --
     begin
         --
-        dbms_output.put_line('Nome da tabela auditada: ' || nome_tabela);
+        dbms_output.put_line('Nome da tabela auditada: ' || r_nome_tabela);
         dbms_output.put_line('Numero de registros na tabela: '|| numero_de_registros);
         dbms_output.put_line('-------------------------------------------------------');
         dbms_output.put_line('Info: ' || descricao);
@@ -42,7 +42,7 @@ create or replace type body resultado_auditoria as
         --
     begin
         --
-        dbms_output.put_line('Nome da tabela auditada: ' || nome_tabela);
+        dbms_output.put_line('Nome da tabela auditada: ' || r_nome_tabela);
         dbms_output.put_line('Data: ' || data_auditoria);
         dbms_output.put_line('Erro: ' || erro);
         --
@@ -53,10 +53,10 @@ create or replace type body resultado_auditoria as
         --
     begin
         --
-        delete from tb_resultado a where a.nome_tabela = nome_tabela;
+        delete from tb_resultado a where a.nome_tabela = r_nome_tabela;
         --
         insert into tb_resultado(id, nome_tabela, qtde_colunas, qtde_total_registros, data_auditoria, descricao, pontuacao, peso_utilizado, erro)
-        values(tb_resultado_seq.nextval, nome_tabela, qtde_colunas, numero_de_registros, sysdate, descricao, pontos, peso_utilizado, erro);
+        values(tb_resultado_seq.nextval, r_nome_tabela, qtde_colunas, numero_de_registros, sysdate, descricao, pontos, peso_utilizado, erro);
         --
         commit;
         --
